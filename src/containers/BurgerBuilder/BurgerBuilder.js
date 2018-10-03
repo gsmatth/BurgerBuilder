@@ -4,6 +4,8 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../axios-orders';
+
 
 //by convention, a global constant uses all caps as variable name.
 const INGREDIENT_PRICES = {
@@ -89,7 +91,27 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    alert("You have continued");
+    const order = {
+      ingredients: this.state.ingredients,
+      totalPrice: this.state.totalPrice,
+      customer: {
+        name: 'Buck Rodgers',
+        address: {
+          street: '1234 street',
+          city: 'Bell',
+          zipCode: '1234556'
+        },
+        emailAddress: 's@test.com',
+        deliveryPreference: 'FedEx 1 day'
+      }
+    };
+    axios.post('/orders.json', order)
+      .then(response => {
+        console.log('[BurgerBuilder.js] purchaseContinueHandler response: ', response);
+      })
+        .catch(err => {
+          console.log('[BurgerBuilder.js] purchaseContinuedHandler error: ', err);
+        })
   }
   
   render(){
