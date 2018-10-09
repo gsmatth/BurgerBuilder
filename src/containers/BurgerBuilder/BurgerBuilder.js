@@ -104,38 +104,35 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    this.setState({
-      loading: true
-    })
-    const order = {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
-      customer: {
-        name: 'Buck Rodgers',
-        address: {
-          street: '1234 street',
-          city: 'Bell',
-          zipCode: '1234556'
-        },
-        emailAddress: 's@test.com',
-        deliveryPreference: 'FedEx 1 day'
-      }
-    };
-    axios.post('/orders.json', order)
-      .then(response => {
-        console.log('[BurgerBuilder.js] purchaseContinueHandler response: ', response);
-        this.setState({
-          loading: false,
-          purchasing: false
-        });
-      })
-        .catch(err => {
-          console.log('[BurgerBuilder.js] purchaseContinuedHandler error: ', err);
-          this.setState({
-            loading: false,
-            purchasing: false
-          });
-        })
+    /**
+     * the props provided by BrowserRouter are available in this component because we have a <Route> that lists BurgerBuilder as its component in App.js: <Route path="/" exact component={BurgerBuilder} />.  This props is not passed on to any of <BurgerBuilder> children
+     */
+
+    const queryParams = [];
+    /**
+     * produce a new array with strings.  Each string contains the property name and value for each item in the state.ingredients array.
+     * ["bacon=1", "cheese=1", "meat=2", "salad=1"]
+     */
+    for(let i in this.state.ingredients){
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+    }
+    console.log('[BurgerBuilder.js] value of queryParams array: ', queryParams);
+    //["bacon=1", "cheese=1", "meat=2", "salad=1"]
+    
+    //a temporary work around to get totalPrice value to ContactData component
+    queryParams.push(`price=${this.state.totalPrice}`);
+    
+    /**
+     * now convert the array of strings to a single string (no array) by joining each string with the others with a "&" character: bacon=1&cheese=1&meat=2&salad=1
+     */
+    const queryString = queryParams.join('&');
+    console.log('[BurgerBuilder.js] value of queryString: ', queryString);
+    //bacon=1&cheese=1&meat=2&salad=1
+    this.props.history.push({
+      pathname: "/checkout",
+      search: '?' + queryString
+    });
+
   }
   
   render(){
