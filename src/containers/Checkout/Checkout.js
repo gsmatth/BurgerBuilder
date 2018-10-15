@@ -62,7 +62,7 @@ class Checkout extends Component {
           cancelOrder={this.checkoutCancelledHandler}/>
         <Route 
           path={this.props.match.path +'/contact-data'} 
-          /* component={ContactData} replacing this component attribute with render attribute below so that we can pass the ingredients attribute directly.  Because we render this component manually here, the new component will not get the three router appended properties: history, match and location.  So we have added props as an argument to get Checkout component router properties with the newly rendered ContactData component.  We could also have wrapped the ContactData component export statement with the withRouter method like this: export default withRouter(ContactData)   */
+          /* component={ContactData} replacing this component attribute with render attribute below so that we can pass the ingredients attribute directly.  Because we render this component manually here, the new component will not get the three router appended properties: history, match and location.  So we have added props as an argument to get Checkout component router properties with the newly rendered ContactData component.  We could also have wrapped the CONTACTDATA component export statement with the withRouter method like this: export default withRouter(ContactData)   */
           render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} 
           {...props}/>)}
            />
