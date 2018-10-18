@@ -5,15 +5,13 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import burgerReducer from './store/reducers/burgerReducer';
 import checkoutReducer from './store/reducers/checkoutReducer';
-import ordersReducer from './store/reducers/ordersReducer';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
   burger: burgerReducer,
-  checkout: checkoutReducer,
-  orders: ordersReducer
+  checkout: checkoutReducer
 })
 
 const store = createStore(rootReducer);
