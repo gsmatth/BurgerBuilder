@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as actions from '../../store/actions/index';
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -14,22 +14,12 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 class BurgerBuilder extends Component {
   state = {
     purchasing: false,
-    loading: false,
-    error: false
   };
 
   componentDidMount() {
-    // axios.get('https://react-my-burger-58e7d.firebaseio.com/ingredients.json')
-    //   .then( response => {
-    //     console.log('[BurgerBuilder.js] componentDidMount axios.get response: ', response);
-    //     this.setState({
-    //       ingredients: response.data
-    //     });
-    //   })
-    //     .catch(err => {
-    //       console.log('[BurgerBuilder.js] componentDidMount, axios.get: ', err);
-    //       this.setState({error: true});
-    //     })
+    console.log('[BurgerBuilder] componentDidMount props: ', this.props);
+    this.props.onInitialIngredients();
+
   }
 
   updatePurchaseState (updatedIngredients){
@@ -60,6 +50,9 @@ class BurgerBuilder extends Component {
     /**
      * the props provided by BrowserRouter are available in this component because we have a <Route> that lists BurgerBuilder as its component in App.js: <Route path="/" exact component={BurgerBuilder} />.  This props is not passed on to any of <BurgerBuilder> children
      */
+    console.log('[BurgerBuilder] entered purchaseContinueHandler ')
+    this.props.onPurchaseInit();
+    console.log('[BurgerBuilder] just completed executing onPurchaseInit')
     this.props.history.push("/checkout");
   }
   
@@ -69,7 +62,7 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
     let orderSummary = null;
-    let burger = this.state.error ? <p>Ingredients can not be loaded</p> : <Spinner/>
+    let burger = this.props.error ? <p>Ingredients can not be loaded</p> : <Spinner/>
 
     if(this.props.ingredients){
       burger = (
@@ -93,10 +86,6 @@ class BurgerBuilder extends Component {
           clickedSuccess={this.purchaseContinueHandler}/>
         )
     }
-
-    if(this.state.loading) {
-      orderSummary = <Spinner />
-    }
   
     return (
       <Aux>
@@ -113,14 +102,17 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.burger.ingredients,
-    totalPrice: state.burger.totalPrice
+    totalPrice: state.burger.totalPrice,
+    error: state.burger.error
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddIngredient: (ingredient) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingredient}),
-    onRemoveIngredient: (ingredient) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingredient}),
+    onAddIngredient: (ingredient) => dispatch(actions.addIngredient(ingredient)),
+    onRemoveIngredient: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
+    onInitialIngredients: () => dispatch(actions.initialIngredients()),
+    onPurchaseInit: () => dispatch(actions.purchaseInit())
   }
 }
 /**
