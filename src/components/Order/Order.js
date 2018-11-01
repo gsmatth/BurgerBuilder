@@ -13,8 +13,6 @@ const Order = (props) => {
       amount: props.ingredients[ingredientName]});
   }
   
-  console.log('[Order.js] newly created ingredients Array: ',ingredients);
-
   const ingredientOutput = ingredients.map(ingredient => {
     return (
       <span key={ingredient.name}>{`${ingredient.name}: ${ingredient.amount}`}</span>

@@ -31,7 +31,7 @@ const logger = store => {
 }
 
 //allows use of redux tool browser plugin https://github.com/zalmoxisus/redux-devtools-extension#usage
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const store = createStore(rootReducer, /* preloadedState, */ 
   composeEnhancers(applyMiddleware(logger, thunk)));

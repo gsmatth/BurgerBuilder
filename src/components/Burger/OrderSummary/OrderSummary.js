@@ -6,9 +6,6 @@ class OrderSummary extends Component  {
   /**
    * This was previously a functional component.  We turned it into a class based component so we could do a demonstration of the componentWillUpdate.
    */
-  componentWillUpdate(){
-    console.log('[OrderSummary] componentWillUpdate');
-  }
 
   render () { 
     //first convert the ingredients object to a new array, containing the property names, not the values of the original object

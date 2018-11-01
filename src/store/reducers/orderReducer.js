@@ -7,7 +7,6 @@ const initialState = {
 }
 
 const purchaseStart = (state, action) => {
-  console.log('[orderReducer] entered case PURCHASE_BURGER_START');
   return {
     ...state,
     loading: true
@@ -15,7 +14,6 @@ const purchaseStart = (state, action) => {
 }
 
 const purchaseBurgerSuccess = (state, action) => {
-  console.log('[orderReducer] entered case PURCHASE_BURGER_SUCCESS');
   const newOrder = {
     ...action.orderData,
     id: action.orderId
@@ -28,7 +26,6 @@ const purchaseBurgerSuccess = (state, action) => {
   };
 }
 const purchaseBurgerFail = (state, action) => {
-  console.log('[orderReducer] entered case PURCHASE_BURGER_FAIL');
   return {
     ...state,
     loading: false,
@@ -36,7 +33,6 @@ const purchaseBurgerFail = (state, action) => {
 }
 
 const purchaseInit = (state, action) => {
-  console.log('[orderReducer] entered case PURCHASE_INIT');
   return {
     ...state,
     purchased: false
@@ -44,7 +40,6 @@ const purchaseInit = (state, action) => {
 }
 
 const fetchOrderStart = (state, action) => {
-  console.log('[orderReducer] entered case FETCH_ORDERS_START')
   return {
     ...state,
     loading: true
@@ -52,7 +47,6 @@ const fetchOrderStart = (state, action) => {
 }
 
 const fetchOrderSuccess = (state, action) => {
-  console.log('[orderReducer] entered case FETCH_ORDERS_SUCCESS');
   return {
     ...state,
     orders: action.orders,
@@ -61,7 +55,6 @@ const fetchOrderSuccess = (state, action) => {
 }
 
 const fetchOrderFail = (state, action) => {
-  console.log('[orderReducer] entered case FETCH_ORDERS_FAIL');
   return {
     ...state,
     loading: false

@@ -26,8 +26,7 @@ We start by using the Object.keys method to creating a new array  from the props
           return prevValue.concat(currentValue);
       }, []);
     ;
-    console.log('tranformedIngredients Array: ',transformedIngredients);
-
+    
   if(transformedIngredients.length === 0){
     transformedIngredients = 'please start adding ingredients';
   }

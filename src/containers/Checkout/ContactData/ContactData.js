@@ -142,14 +142,10 @@ class ContactData extends Component {
 
   orderHandler = (event) => {
     event.preventDefault();//to prevent a network request from being sent
-    console.log('[ContactData] props.ingredients: ', this.props.ingredients);
-
     const formDataObj = {};
     for(const prop in this.state.orderForm){
       formDataObj[prop] = this.state.orderForm[prop].value;
     }
-    console.log('[ContactData.js] formDataObj in orderHandler: ', formDataObj);
-
     const order = {
       ingredients: this.props.ingredients,
       totalPrice: this.props.totalPrice,
@@ -160,7 +156,6 @@ class ContactData extends Component {
   }
 
   inputChangedHandler = (event, formElementId) => {
-    console.log('[ContactData.js] value of event.target.value and formElementId passed to inputChangedHandler: ', event.target.value, formElementId);
     let updatedOrderForm = {...this.state.orderForm};
     let updatedFormElement = {...updatedOrderForm[formElementId]};
     updatedFormElement.value = event.target.value;
@@ -186,7 +181,6 @@ class ContactData extends Component {
         config: this.state.orderForm[objectPropertyName]
       })
     }
-    console.log('[ContactData.js] value of formElementArray in render: ', formElementsArray);
     let form = (
       <form onSubmit={this.orderHandler}>
         {formElementsArray.map(formElement => (

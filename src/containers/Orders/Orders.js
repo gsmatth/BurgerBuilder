@@ -10,12 +10,10 @@ class Orders extends Component {
 
 
   componentDidMount () {
-    console.log('[Orders.js] value of token in componentDidMount: ', this.props.token)
     this.props.onFetchOrders(this.props.token, this.props.userId);
   }
  
   render () {
-    console.log('[Orders.js] state.orders in render: ', this.props.orders);
     let orders = <Spinner/>;
     if(!this.props.loading){
       orders = this.props.orders.map(order => (

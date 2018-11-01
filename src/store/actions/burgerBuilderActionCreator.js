@@ -37,11 +37,9 @@ export const initialIngredients = () => {
         axios.get('https://react-my-burger-58e7d.firebaseio.com/ingredients.json')
       .then( response => {
         //dispatch new action now. dispatch is made available by redux-thunk
-        console.log('[BurgerBuilderActionCreator.js] axios.get response: ', response);
         dispatch(setIngredients(response.data));
         })
         .catch(err => {
-          console.log('[BurgerBuilderActionCreator] initialIngredients error: ',err);
          dispatch(fetchIngredientsFailed());
         })
   }

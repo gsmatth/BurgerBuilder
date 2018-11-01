@@ -8,12 +8,7 @@ class Modal extends Component {
    * we use the lifecycle method below to prevent the modal from being updated unless there is a change in the show status of the backdrop.  The Order summary is a child component of the Modal component and it is not updated either.
    */
   shouldComponentUpdate(nextProps, nextState){
-    console.log('[Modal.js] shouldComponentUpdate');
     return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
-  }
-
-  componentWillUpdate (){
-    console.log('[Modal.js] componentWillUpdate');
   }
 
   render() {

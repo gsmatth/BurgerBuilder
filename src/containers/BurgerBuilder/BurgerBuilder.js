@@ -17,7 +17,6 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log('[BurgerBuilder] componentDidMount props: ', this.props);
     this.props.onInitialIngredients();
 
   }
@@ -39,7 +38,6 @@ class BurgerBuilder extends Component {
   purchaseHandler = () => {
     if(this.props.isAuthenticated) {
       this.setState({purchasing: true});
-      console.log('purchasing: ', this.state.purchasing);
   } else {
     this.props.onSetAuthRedirectPath('/checkout')
     this.props.history.push('/auth');
@@ -48,16 +46,13 @@ class BurgerBuilder extends Component {
 
   purchaseCancelHandler = () => {
     this.setState({purchasing: false});
-    console.log('cancel purchase: ', this.state.purchasing);
   }
 
   purchaseContinueHandler = () => {
     /**
      * the props provided by BrowserRouter are available in this component because we have a <Route> that lists BurgerBuilder as its component in App.js: <Route path="/" exact component={BurgerBuilder} />.  This props is not passed on to any of <BurgerBuilder> children
      */
-    console.log('[BurgerBuilder] entered purchaseContinueHandler ')
     this.props.onPurchaseInit();
-    console.log('[BurgerBuilder] just completed executing onPurchaseInit')
     this.props.history.push("/checkout");
   }
   

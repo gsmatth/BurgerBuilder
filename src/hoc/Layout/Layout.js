@@ -12,7 +12,6 @@ class Layout extends Component {
   };
 
   sideDrawerClosedHandler = () => {
-    console.log('[Layout.js] entered sideDrawerClosedHandler');
     this.setState({showSideDrawer: false});
   };
 
@@ -20,7 +19,6 @@ class Layout extends Component {
    * we are using prevState functional approach because we are dependent on the previous state to decide what the new state is going to be.  In the sideDrawerCloseHandler above, we are not dependent on the previous state, we just change it to false always.
    */
   sideDrawerToggleHandler = () => {
-    console.log('[Layout.js] entered sideDrawerToggleHandler');
     this.setState ((prevState) => {
       return {showSideDrawer: !prevState.showSideDrawer};
     })

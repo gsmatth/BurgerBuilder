@@ -22,7 +22,6 @@ const INGREDIENT_PRICES = {
        * what we end up returning is an updated state object   
        */
 const addIngredient = (state, action) => {
-  console.log('[burgerReducer.js] entered case ADD_INGREDIENT');
   return {
     ...state,
     ingredients:{
@@ -35,7 +34,6 @@ const addIngredient = (state, action) => {
 }
 
 const removeIngredient = (state, action) => {
-  console.log('[burgerReducer.js] entered case REMOVE_INGREDIENT');
       return {
         ...state,
         ingredients: {
@@ -49,7 +47,6 @@ const removeIngredient = (state, action) => {
 }
 
 const setIngredients = (state, action) => {
-  console.log('[burgerBuilderReducer] entered case SET_INGREDIENTS');
         return {
           ...state,
           ingredients: action.ingredients,
@@ -60,7 +57,6 @@ const setIngredients = (state, action) => {
 }
 
 const fetchIngredientsFailed = (state, action) => {
-  console.log('[burgerBuilderReducer] entered case FETCH_INGREDIENTS_FAILED');
   return {
     ...state,
     error: true

@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './BuildControl.css';
 
 const buildControl = (props) => {
-console.log('props.disabled: ', props.disabled);
 return (
   <div className={styles.BuildControl}>
     <div className={styles.label}>{props.label}</div>
