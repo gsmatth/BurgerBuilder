@@ -10,8 +10,8 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
-
-class BurgerBuilder extends Component {
+//we have added the "export" keyword so we can import it into our test file.  We still have the default "export default" statement at the end of the file fo r more common uses
+export class BurgerBuilder extends Component {
   state = {
     purchasing: false,
   };
@@ -90,7 +90,9 @@ class BurgerBuilder extends Component {
   
     return (
       <Aux>
-        <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+        <Modal 
+          show={this.state.purchasing} 
+          modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
         {burger}

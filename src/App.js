@@ -11,7 +11,7 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 // import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 
-
+//lazy loading, for practice, not to effective with this small of a code base
 const asyncCheckout = asyncComponent(() => {
   return import('./containers/Checkout/Checkout');
 });
