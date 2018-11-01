@@ -7,13 +7,15 @@ import thunk from 'redux-thunk';
 
 import burgerBuilderReducer from './store/reducers/burgerBuilderReducer';
 import orderReducer from './store/reducers/orderReducer';
+import authReducer from './store/reducers/authReducer';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const rootReducer = combineReducers({
   burger: burgerBuilderReducer,
-  order: orderReducer
+  order: orderReducer,
+  auth: authReducer
 })
 
 const logger = store => {
