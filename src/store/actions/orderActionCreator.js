@@ -23,10 +23,10 @@ export const purchaseBurgerStart = () => {
   }
 }
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
   return dispatch => {
     dispatch(purchaseBurgerStart());
-    axios.post('/orders.json', orderData)
+    axios.post('/orders.json?auth=' + token, orderData)
     .then(response => {
       console.log('[orderActionCreator.js] purchaseBurgerStart response: ', response.data);
       dispatch(purchaseBurgerSuccess(response.data.name, orderData));
@@ -64,10 +64,13 @@ export const fetchOrdersFail = (error) => {
   }
 }
 
-export const fetchOrders = ()  => {
+export const fetchOrders = (token, userId)  => {
+  console.log('[orderActionCreator] fetchOrders value of token: ', token);
   return dispatch => {
     dispatch(fetchOrdersStart());
-    axios.get('/orders.json')
+    //this params syntax is unique to firebase
+    const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';  
+    axios.get('/orders.json' + queryParams)
     .then(response => {
       console.log('[OrdersActionCreator.js] response.data object in componentDidMount: ', response.data);
       const fetchedOrders = [];

@@ -109,19 +109,36 @@ class ContactData extends Component {
     formIsValid: false
   }
 
-  checkValidity = (value, rules) => {
+  checkValidity(value, rules) {
     let isValid = true;
-    if(rules.required){
-      isValid = value.trim() !== '' && isValid;
+    if (!rules) {
+        return true;
     }
-    if(rules.minlength){
-      isValid = value.length >= rules.minLength && isValid
+    
+    if (rules.required) {
+        isValid = value.trim() !== '' && isValid;
     }
-    if(rules.maxLength){
-      isValid = value.length <= rules.maxLength && isValid
+
+    if (rules.minLength) {
+        isValid = value.length >= rules.minLength && isValid
     }
+
+    if (rules.maxLength) {
+        isValid = value.length <= rules.maxLength && isValid
+    }
+
+    if (rules.isEmail) {
+        const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+        isValid = pattern.test(value) && isValid
+    }
+
+    if (rules.isNumeric) {
+        const pattern = /^\d+$/;
+        isValid = pattern.test(value) && isValid
+    }
+
     return isValid;
-  }
+}
 
   orderHandler = (event) => {
     event.preventDefault();//to prevent a network request from being sent
@@ -136,9 +153,10 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ingredients,
       totalPrice: this.props.totalPrice,
-      orderData: formDataObj
+      orderData: formDataObj,
+      userId: this.props.userId
       }
-      this.props.onOrderBurger(order);
+      this.props.onOrderBurger(order, this.props.token);
   }
 
   inputChangedHandler = (event, formElementId) => {
@@ -202,12 +220,14 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.token,
+    userId: state.auth.userId
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token))
   }
 }
 
